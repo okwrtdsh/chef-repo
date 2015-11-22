@@ -1,0 +1,8 @@
+{
+  "run_list": [
+    "chef-cookbook"
+  ],
+  "chef-repo":{
+    "username":"user"
+  }
+}
