@@ -23,9 +23,9 @@ bash "Set default shell to zsh" do
 end
 user = node["chef-repo"]["username"]
 git "/home/#{user}/.zsh.d" do
-    repository "https://github.com/okwrtdsh/zsh.git"
+    repository "git://github.com/okwrtdsh/zsh.git"
     reference "master"
-    action :sync
+    action :checkout
     user "#{user}"
 end
 execute "Set zshrc" do
@@ -39,10 +39,22 @@ end
 # vimの設定
 user = node["chef-repo"]["username"]
 git "/home/#{user}/.vim" do
-    repository "https://github.com/okwrtdsh/vim.git"
+    repository "git://github.com/okwrtdsh/vim.git"
     reference "master"
-    action :sync
+    action :checkout
     user "#{user}"
+end
+file "/home/#{user}/.vimrc" do
+    owner "root"
+    group "root"
+    mode "0755"
+    action :create
+end
+file "/home/#{user}/.vimrc.local" do
+    owner "root"
+    group "root"
+    mode "0755"
+    action :create
 end
 file "/home/#{user}/.vimrc" do
     content IO.read("/home/#{user}/.vim/vimrc")
