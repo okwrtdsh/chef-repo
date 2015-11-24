@@ -49,7 +49,7 @@ execute "set vimrc.local" do
 end
 
 # ubuntuのみ適用
-if platform?("ubuntu") then
+if platform?("debian") then
     %w{guake pgadmin3}.each do |pkg|
         action :install
     end
