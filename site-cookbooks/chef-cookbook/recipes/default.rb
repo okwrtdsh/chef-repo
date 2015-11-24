@@ -24,8 +24,8 @@ git "/home/#{user}/.vim" do
     user "#{user}"
 end
 
-# zsh, vimのインストール
-%w{zsh vim}.each do |pkg|
+# zsh, vim, ncurses-termのインストール
+%w{zsh vim ncurses-term}.each do |pkg|
     package pkg do
         action :install
     end
