@@ -14,18 +14,20 @@
     end
 end
 
+# gitの設定
+user = node["chef-repo"]["username"]
+execute "generate ssh skys for #{user}." do
+  user user
+  creates "/home/#{user}/.ssh/id_rsa.pub"
+  command "ssh-keygen -t rsa -q -f /home/#{user}/.ssh/id_rsa -P \"\""
+end
 
 # zshの設定
-bash "Set default shell to zsh" do
-    code <<-EOT
-        chsh -s `which zsh`
-    EOT
-end
 user = node["chef-repo"]["username"]
 git "/home/#{user}/.zsh.d" do
     repository "git://github.com/okwrtdsh/zsh.git"
     reference "master"
-    action :checkout
+    action :sync
     user "#{user}"
 end
 execute "Set zshrc" do
@@ -41,20 +43,8 @@ user = node["chef-repo"]["username"]
 git "/home/#{user}/.vim" do
     repository "git://github.com/okwrtdsh/vim.git"
     reference "master"
-    action :checkout
+    action :sync
     user "#{user}"
-end
-file "/home/#{user}/.vimrc" do
-    owner "root"
-    group "root"
-    mode "0755"
-    action :create
-end
-file "/home/#{user}/.vimrc.local" do
-    owner "root"
-    group "root"
-    mode "0755"
-    action :create
 end
 file "/home/#{user}/.vimrc" do
     content IO.read("/home/#{user}/.vim/vimrc")
@@ -62,3 +52,4 @@ end
 file "/home/#{user}/.vimrc.local" do
     content IO.read("/home/#{user}/.vim/vimrc.local")
 end
+
