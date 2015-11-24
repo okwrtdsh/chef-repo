@@ -17,7 +17,6 @@ git "/home/#{user}/.zsh.d" do
 end
 
 # vimの設定をclone
-user = node["chef-repo"]["username"]
 git "/home/#{user}/.vim" do
     repository "https://github.com/okwrtdsh/vim.git"
     reference "master"
@@ -56,7 +55,7 @@ if platform?("ubuntu")
     end
     # ホームディレクトリ以下を英語に
     bash "change Japanese directory name" do
-        cwd '/home/' + node["python_django_env"]["username"]
+        cwd "/home/#{user}"
         user "#{user}"
         code <<-EOC
             LANG=C xdg-user-dirs-update --force
