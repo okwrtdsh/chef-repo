@@ -10,7 +10,7 @@
 # zshの設定をclone
 user = node["chef-repo"]["username"]
 git "/home/#{user}/.zsh.d" do
-    repository "git://github.com/okwrtdsh/zsh.git"
+    repository "https://github.com/okwrtdsh/zsh.git"
     reference "master"
     action :sync
     user "#{user}"
@@ -19,7 +19,7 @@ end
 # vimの設定をclone
 user = node["chef-repo"]["username"]
 git "/home/#{user}/.vim" do
-    repository "git@github.com:okwrtdsh/vim.git"
+    repository "https://github.com/okwrtdsh/vim.git"
     reference "master"
     action :sync
     user "#{user}"
