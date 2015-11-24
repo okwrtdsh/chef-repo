@@ -25,26 +25,35 @@ git "/home/#{user}/.vim" do
     user "#{user}"
 end
 
-# とりあえずzsh, vimのインストール
+# zsh, vimのインストール
 %w{zsh vim}.each do |pkg|
     package pkg do
         action :install
     end
 end
 
-# zshの設定
-execute "Set zshrc" do
+# zshrc, zshenvの設定
+execute "set zshrc" do
     command "echo 'source ~/.zsh.d/zshrc' > /home/#{user}/.zshrc"
 end
-execute "Set zshenv" do
+execute "set zshenv" do
     command "echo 'source ~/.zsh.d/zshenv' > /home/#{user}/.zshenv"
 end
 
-# vimの設定
-file "/home/#{user}/.vimrc" do
-    content IO.read("/home/#{user}/.vim/vimrc")
-end
-file "/home/#{user}/.vimrc.local" do
-    content IO.read("/home/#{user}/.vim/vimrc.local")
+# ubuntuのみ適用
+if platform?("ubuntu")
+    %w{guake pgadmin3}.each do |pkg|
+        action :install
+    end
+    # ホームディレクトリ以下を英語に
+    bash "change Japanese directory name" do
+        cwd '/home/' + node["python_django_env"]["username"]
+        user "#{user}"
+        code <<-EOC
+            LANG=C xdg-user-dirs-update --force
+            rm -rf テンプレート ドキュメント ピクチャ 公開 ダウンロード デスクトップ ビデオ ミュージック
+        EOC
+        only_if {File.exists?("/home/#{user}/デスクトップ") }
+    end
 end
 
