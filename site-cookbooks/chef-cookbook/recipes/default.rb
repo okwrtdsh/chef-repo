@@ -51,7 +51,9 @@ end
 # ubuntuのみ適用
 if node['platform'] == 'ubuntu'
     %w{guake pgadmin3}.each do |pkg|
-        action :install
+        package pkg do
+            action :install
+        end
     end
     # ホームディレクトリ以下を英語に
     bash "change Japanese directory name" do
