@@ -34,9 +34,11 @@ end
 # zshrc, zshenvの設置
 execute "set zshrc" do
     command "echo 'source ~/.zsh.d/zshrc' > /home/#{user}/.zshrc"
+    not_if {File.exists?("/home/#{user}/.zshrc") }
 end
 execute "set zshenv" do
     command "echo 'source ~/.zsh.d/zshenv' > /home/#{user}/.zshenv"
+    not_if {File.exists?("/home/#{user}/.zshenv") }
 end
 
 
