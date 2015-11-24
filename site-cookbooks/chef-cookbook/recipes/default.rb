@@ -37,7 +37,7 @@ execute "Set zshrc" do
     command "echo 'source ~/.zsh.d/zshrc' > /home/#{user}/.zshrc"
 end
 execute "Set zshenv" do
-    command "echo 'source ~/.zsh.d/zshenv' > /home/#{user}/. zshenv"
+    command "echo 'source ~/.zsh.d/zshenv' > /home/#{user}/.zshenv"
 end
 
 # vimの設定
