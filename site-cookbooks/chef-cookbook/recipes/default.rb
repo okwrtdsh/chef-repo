@@ -32,12 +32,21 @@ end
     end
 end
 
-# zshrc, zshenvの設定
+# zshrc, zshenvの設置
 execute "set zshrc" do
     command "echo 'source ~/.zsh.d/zshrc' > /home/#{user}/.zshrc"
 end
 execute "set zshenv" do
     command "echo 'source ~/.zsh.d/zshenv' > /home/#{user}/.zshenv"
+end
+
+
+# vimrc vimrc.localを設置
+execute "set vimrc" do
+    command "cp /home/#{user}/.vim/vimrc /home/#{user}/.vimrc"
+end
+execute "set vimrc.local" do
+    command "cp /home/#{user}/.vim/vimrc.local /home/#{user}/.vimrc.local"
 end
 
 # ubuntuのみ適用
