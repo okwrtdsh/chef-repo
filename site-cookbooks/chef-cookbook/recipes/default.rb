@@ -69,3 +69,8 @@ if node['platform'] == 'ubuntu'
     end
 end
 
+# ログインシェルをzshに
+execute "change login shell" do
+    command "chsh -s `which zsh`"
+end
+
