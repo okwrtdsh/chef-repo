@@ -71,6 +71,6 @@ end
 
 # ログインシェルをzshに
 execute "change login shell" do
-    command "chsh -s `which zsh`"
+    command "chsh -s `which zsh` #{user}"
 end
 
